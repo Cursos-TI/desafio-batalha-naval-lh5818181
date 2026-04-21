@@ -5,70 +5,73 @@
 // Siga os comentários para implementar cada parte do desafio.
 
 int main() {
-    // Nível Novato - Posicionamento dos Navios
-
-    // 1. Declaração do Tabuleiro 10x10
-    // O valor 0 representa água.
+    // --- 1. DEFINIÇÃO E INICIALIZAÇÃO ---
+    // Matriz 10x10 representando o oceano (0 = água, 3 = navio)
     int tabuleiro[10][10];
+    int i, j;
 
-    // Inicializando o tabuleiro com 0 usando loops aninhados
-    for (int i = 0; i < 10; i++) {
-        for (int j = 0; j < 10; j++) {
+    // Inicializando todas as posições com 0 usando loops aninhados
+    for (i = 0; i < 10; i++) {
+        for (j = 0; j < 10; j++) {
             tabuleiro[i][j] = 0;
         }
     }
 
-    // 2. Posicionamento do Navio Horizontal (Tamanho 3)
-    // Coloquei o navio na linha 2, ocupando as colunas 1, 2 e 3.
-    int linhaH = 2;
-    int colH_inicio = 1;
-    tabuleiro[linhaH][colH_inicio] = 3;
-    tabuleiro[linhaH][colH_inicio + 1] = 3;
-    tabuleiro[linhaH][colH_inicio + 2] = 3;
+    // --- 2. POSICIONAMENTO DOS NAVIOS (TAMANHO 3) ---
 
-    // 3. Posicionamento do Navio Vertical (Tamanho 3)
-    // Coloquei o navio na coluna 7, ocupando as linhas 5, 6 e 7.
-    int colV = 7;
-    int linhaV_inicio = 5;
-    tabuleiro[linhaV_inicio][colV] = 3;
-    tabuleiro[linhaV_inicio + 1][colV] = 3;
-    tabuleiro[linhaV_inicio + 2][colV] = 3;
+    // Navio 1: Horizontal
+    // Posicionado na linha 2, colunas 1, 2 e 3
+    int linhaH = 2, colH = 1;
+    for (j = 0; j < 3; j++) {
+        tabuleiro[linhaH][colH + j] = 3;
+    }
 
-    // 4. Exibição das Coordenadas dos Navios
-    printf("Navio Horizontal posicionado nas coordenadas: (%d, %d), (%d, %d), (%d, %d)\n", 
-            linhaH, colH_inicio, linhaH, colH_inicio + 1, linhaH, colH_inicio + 2);
+    // Navio 2: Vertical
+    // Posicionado na coluna 7, linhas 5, 6 e 7
+    int linhaV = 5, colV = 7;
+    for (i = 0; i < 3; i++) {
+        tabuleiro[linhaV + i][colV] = 3;
+    }
 
-    printf("Navio Vertical posicionado nas coordenadas: (%d, %d), (%d, %d), (%d, %d)\n", 
-            linhaV_inicio, colV, linhaV_inicio + 1, colV, linhaV_inicio + 2, colV);
+    // Navio 3: Diagonal Principal (Linha e Coluna aumentam juntas)
+    // Coordenadas: (0,0), (1,1), (2,2)
+    for (i = 0; i < 3; i++) {
+        tabuleiro[i][i] = 3;
+    }
 
-    printf("\n--- Fim da Parte 1 ---\n");
+    // Navio 4: Diagonal Secundária (Linha aumenta, Coluna diminui)
+    // Coordenadas: (5,2), (6,1), (7,0)
+    int startL = 5, startC = 2;
+    for (i = 0; i < 3; i++) {
+        tabuleiro[startL + i][startC - i] = 3;
+    }
 
+    // --- 3. EXIBIÇÃO DOS RESULTADOS ---
 
-    // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
-    // Sugestão: Expanda o tabuleiro para uma matriz 10x10.
-    // Sugestão: Posicione quatro navios no tabuleiro, incluindo dois na diagonal.
-    // Sugestão: Exiba o tabuleiro completo no console, mostrando 0 para posições vazias e 3 para posições ocupadas.
+    printf("=============================================\n");
+    printf("        BATALHA NAVAL - NÍVEL AVENTUREIRO     \n");
+    printf("=============================================\n\n");
 
-    // Nível Mestre - Habilidades Especiais com Matrizes
-    // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
-    // Sugestão: Utilize estruturas de repetição aninhadas para preencher as áreas afetadas por essas habilidades no tabuleiro.
-    // Sugestão: Exiba o tabuleiro com as áreas afetadas, utilizando 0 para áreas não afetadas e 1 para áreas atingidas.
+    // Listagem de coordenadas para conferência (Requisito Novato/Aventureiro)
+    printf("Posições dos Navios (Valor 3):\n");
+    printf("- Horizontal: (2,1), (2,2), (2,3)\n");
+    printf("- Vertical:   (5,7), (6,7), (7,7)\n");
+    printf("- Diagonal 1: (0,0), (1,1), (2,2)\n");
+    printf("- Diagonal 2: (5,2), (6,1), (7,0)\n\n");
 
-    // Exemplos de exibição das habilidades:
-    // Exemplo para habilidade em cone:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 1 1 1 1 1
-    
-    // Exemplo para habilidade em octaedro:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 0 0 1 0 0
+    // Impressão da Matriz 10x10 formatada
+    printf("    0 1 2 3 4 5 6 7 8 9 (Colunas)\n");
+    printf("    -------------------\n");
 
-    // Exemplo para habilidade em cruz:
-    // 0 0 1 0 0
-    // 1 1 1 1 1
-    // 0 0 1 0 0
+    for (i = 0; i < 10; i++) {
+        printf("%d | ", i); // Índice da linha para facilitar leitura
+        for (j = 0; j < 10; j++) {
+            printf("%d ", tabuleiro[i][j]);
+        }
+        printf("\n");
+    }
+
+    printf("\n--- Fim do Desafio: Nível Aventureiro ---\n");
 
     return 0;
 }
